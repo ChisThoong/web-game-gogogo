@@ -12,22 +12,30 @@ const UIOverlay: React.FC<UIOverlayProps> = ({ gameState, startGame, gameStats }
   const [analysis, setAnalysis] = useState<GeminiAnalysis | null>(null);
   const [loadingAnalysis, setLoadingAnalysis] = useState(false);
 
+  // useEffect(() => {
+  //   if (gameState === GameState.GAME_OVER) {
+  //     setLoadingAnalysis(true);
+  //     generateRunAnalysis(gameStats.distance, gameStats.coins)
+  //       .then(data => {
+  //         setAnalysis(data);
+  //         setLoadingAnalysis(false);
+  //       })
+  //       .catch(() => {
+  //         setLoadingAnalysis(false);
+  //         setAnalysis({ title: "Network Error", comment: "Could not fetch AI analysis." });
+  //       });
+  //   } else {
+  //     setAnalysis(null);
+  //   }
+  // }, [gameState, gameStats]);
   useEffect(() => {
     if (gameState === GameState.GAME_OVER) {
-      setLoadingAnalysis(true);
-      generateRunAnalysis(gameStats.distance, gameStats.coins)
-        .then(data => {
-          setAnalysis(data);
-          setLoadingAnalysis(false);
-        })
-        .catch(() => {
-          setLoadingAnalysis(false);
-          setAnalysis({ title: "Network Error", comment: "Could not fetch AI analysis." });
-        });
+      const result = generateRunAnalysis(gameStats.distance, gameStats.coins);
+      setAnalysis(result);
     } else {
       setAnalysis(null);
     }
-  }, [gameState, gameStats]);
+  }, [gameState, gameStats.distance, gameStats.coins]);
 
   if (gameState === GameState.PLAYING) {
     return (
@@ -69,8 +77,9 @@ const UIOverlay: React.FC<UIOverlayProps> = ({ gameState, startGame, gameStats }
            </div>
 
            {/* Gemini Section */}
+
            <div className="border-t border-slate-700 pt-4 mt-2">
-              {/* <h3 className="text-xs uppercase tracking-widest text-purple-400 mb-2">AI Runner Analysis</h3> */}
+             
               {loadingAnalysis ? (
                  <div className="flex items-center justify-center gap-2 text-sm text-gray-400 italic">
                    <div className="w-2 h-2 bg-purple-500 rounded-full animate-ping"></div>
@@ -78,7 +87,8 @@ const UIOverlay: React.FC<UIOverlayProps> = ({ gameState, startGame, gameStats }
                  </div>
               ) : analysis ? (
                 <div className="animate-slide-up">
-                  <div className="text-sm font-bold text-yellow-300 font-pixel mb-1 text-center">"{analysis.title}"</div>
+                  {/* <div className="text-sm font-bold text-yellow-300  mb-1 text-center">"{analysis.title}"</div> */}
+                  <div className="text-sm font-bold text-yellow-300  mb-1 text-center">"3 Mũi 900k"</div>
                   <p className="text-sm text-gray-300 italic font-serif">"{analysis.comment}"</p>
                 </div>
               ) : null}
