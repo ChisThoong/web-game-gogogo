@@ -1,0 +1,5 @@
+{
+  "name": "Pixel Dash: Infinite Run",
+  "description": "A high-speed endless runner game where you dodge obstacles, collect coins, and unlock AI-generated achievements using the Gemini API.",
+  "requestFramePermissions": []
+}
