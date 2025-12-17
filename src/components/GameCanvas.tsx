@@ -136,7 +136,7 @@ const GameCanvas: React.FC<GameCanvasProps> = ({
 
     // Background
     const bgImg = new Image();
-    bgImg.src = '/bg/rice-field.png';
+    bgImg.src = '/bg/bg3.png';
     imagesRef.current.bg = bgImg;
 
     // 1. Player Run (4 frames)
